@@ -1,0 +1,308 @@
+{
+  "name": "Email Generating Assistant",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        0
+      ],
+      "id": "082a471a-f54c-49a5-b546-3fa231eb5fc2",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        448,
+        176
+      ],
+      "id": "bf63ea54-9bf0-460e-9232-d20df9bf181d",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "b6ttyvbdxqGcYyO9",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Write a professional email based on the following:\n\nIntent:\n{{ $json.Intent }}\n\nKey Facts:\n{{ $json.Facts }}\n\nTone:\n{{ $json.Tone }}\n\nMake sure:\n- All facts are included\n- Tone is clearly reflected\n- Email is structured properly (greeting, body, closing)\n- Keep it concise and human-like\n- End the email always with Regards, {{ $json['Sender\\'s name '] }}\n-  Use this {{ $json['Recipient\\'s name '] }} as Recipient name \n\nReturn only the final email.",
+        "options": {
+          "systemMessage": "You are an advanced Email Generation Assistant designed to create high-quality, professional emails based on structured inputs.\n\nYour task is to generate a well-written email using the following three inputs:\n1. Intent — the purpose of the email (e.g., follow-up, request, introduction)\n2. Key Facts — specific points that must be included naturally in the email\n3. Tone — the desired communication style (formal, casual, urgent, empathetic, etc.)\n\nInstructions:\n- Fully understand the intent before writing\n- Seamlessly incorporate ALL key facts into the email (do not list them mechanically)\n- Accurately match the requested tone throughout the email\n- Maintain a natural, human, and professional writing style\n- Keep the email concise but complete\n- Structure the email properly with:\n  - Greeting\n  - Clear body\n  - Closing\n\nReasoning Process (internal, do not output):\n1. Interpret the intent clearly\n2. Organize key facts logically\n3. Adjust tone accordingly\n4. Generate a clean, ready-to-send email\n\nConstraints:\n- Do NOT omit any key fact\n- Do NOT sound robotic or generic\n- Do NOT add unnecessary information\n- Do NOT explain your reasoning\n\nOutput:\nReturn only the final email.\nThen produce a clean, ready-to-send email."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        448,
+        0
+      ],
+      "id": "1c5876d1-b6b5-407b-bd3d-c988ab66ca19",
+      "name": "Email Generation"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "40588ecd-6316-4988-9ac1-bf7b004136d4",
+              "name": "Intent",
+              "value": "Partnership proposal",
+              "type": "string"
+            },
+            {
+              "id": "ceb5afa6-a54f-4b7c-9e7b-2ac19a4c7427",
+              "name": "Facts",
+              "value": "Collaboration idea, mutual benefit, request meeting",
+              "type": "string"
+            },
+            {
+              "id": "ea0e98c8-9927-4246-9a95-4270a00e847a",
+              "name": "Tone",
+              "value": "formal",
+              "type": "string"
+            },
+            {
+              "id": "5a447d5f-abeb-4533-849e-d0e71e65921c",
+              "name": "Sender's name ",
+              "value": "Dhruv khanna",
+              "type": "string"
+            },
+            {
+              "id": "6cd5d490-e96e-4124-8345-79e136423be0",
+              "name": "Recipient's name ",
+              "value": "James will",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        0
+      ],
+      "id": "d7f8a137-b6f2-40d2-8a94-eeee3ba689ad",
+      "name": "Input Information"
+    },
+    {
+      "parameters": {
+        "content": "Advanced Prompt Agent\n",
+        "height": 400,
+        "width": 864
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -64,
+        -64
+      ],
+      "typeVersion": 1,
+      "id": "7a6036c8-3a7e-4344-b6b5-bede0768e0f5",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        448,
+        672
+      ],
+      "id": "e2e9b264-3d21-4395-adfa-4e9eab45f893",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "b6ttyvbdxqGcYyO9",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "40588ecd-6316-4988-9ac1-bf7b004136d4",
+              "name": "Intent",
+              "value": "Partnership proposal",
+              "type": "string"
+            },
+            {
+              "id": "ceb5afa6-a54f-4b7c-9e7b-2ac19a4c7427",
+              "name": "Facts",
+              "value": "Collaboration idea, mutual benefit, request meeting",
+              "type": "string"
+            },
+            {
+              "id": "ea0e98c8-9927-4246-9a95-4270a00e847a",
+              "name": "Tone",
+              "value": "formal",
+              "type": "string"
+            },
+            {
+              "id": "5a447d5f-abeb-4533-849e-d0e71e65921c",
+              "name": "Sender's name ",
+              "value": "Dhruv khanna",
+              "type": "string"
+            },
+            {
+              "id": "6cd5d490-e96e-4124-8345-79e136423be0",
+              "name": "Recipient's name ",
+              "value": "James will",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        192,
+        512
+      ],
+      "id": "31f704b8-9d71-4355-9987-91e7052850ba",
+      "name": "Input Information1"
+    },
+    {
+      "parameters": {
+        "content": "Basic Prompt Agent \n",
+        "height": 416,
+        "width": 864
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        432
+      ],
+      "id": "dea9dcfc-d29b-4e1d-8ccb-9c4a14bf6182",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Write a professional email based on the following:\n\nIntent:\n{{ $json.Intent }}\n\nKey Facts:\n{{ $json.Facts }}\n\nTone:\n{{ $json.Tone }}\n\nEnd with Regards, {{ $json['Sender\\'s name '] }}\n\nRecipient's name:\n{{ $json['Recipient\\'s name '] }}\n\nDo not give subject",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        448,
+        512
+      ],
+      "id": "b247ba6a-62da-4295-a188-f4cc72917004",
+      "name": "Email Generation1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Input Information",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Input Information1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Email Generation",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Input Information": {
+      "main": [
+        [
+          {
+            "node": "Email Generation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email Generation": {
+      "main": [
+        []
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Email Generation1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Input Information1": {
+      "main": [
+        [
+          {
+            "node": "Email Generation1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email Generation1": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "4b1c38b7-9f8f-430f-9ee4-ed84b2d5c402",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e953eb01db31836950150f14b490e45712b48443bdcff1070fb297541e9168ee"
+  },
+  "id": "rW2xIToCkt42yTb3",
+  "tags": []
+}
