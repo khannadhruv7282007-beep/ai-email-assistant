@@ -59,18 +59,4 @@ Before starting, make sure you have:
 3. Paste your OpenAI API key  
 4. Save the credentials  
 
----
 
-## Step 5 — Configure the Prompt
-
-Inside the OpenAI node:
-
-### System Message
-
-Paste the system prompt provided in the project report
-
----
-
-### User Message
-
-Use the following format:
